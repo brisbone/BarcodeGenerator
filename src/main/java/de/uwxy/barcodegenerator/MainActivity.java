@@ -156,16 +156,16 @@ public class MainActivity extends AppCompatActivity {
     protected void openPdf(String filepath) {
 
         Intent intent = new Intent(getApplicationContext(), ShowPdfActivity.class);
-        intent.putExtra("fileString", filepath);
+        intent.putExtra(FILE_PATH, filepath);
         startActivity(intent);
     }
 
     protected void sendIntent(String name, String kommission, String arbeitsgang, String filePath) {
         Intent intent = new Intent(this, ItextService.class);
-        intent.putExtra("name", name);
-        intent.putExtra("kommission", kommission);
-        intent.putExtra("arbeitsgang", arbeitsgang);
-        intent.putExtra("filepath", filePath);
+        intent.putExtra(NAME, name);
+        intent.putExtra(KOMMISSION, kommission);
+        intent.putExtra(ARBEITSGANG, arbeitsgang);
+        intent.putExtra(FILE_PATH, filePath);
         startService(intent);
     }
 

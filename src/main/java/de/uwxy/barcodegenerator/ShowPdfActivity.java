@@ -23,7 +23,7 @@ public class ShowPdfActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            targetPdf = extras.getString("fileString");
+            targetPdf = extras.getString(MainActivity.FILE_PATH);
 
         }
     }
