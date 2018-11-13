@@ -1,0 +1,2 @@
+# BarcodeGenerator:
+Diese Applikation kann zur Zugangskontrolle oder zur Zeiterfassung für Projekte genutzt werden. In der ersten Reihe können ein Benutzername eingegeben werden, der ähnlich einem Passworteingabefeld funktioniert. Die zweite und dritte Reihe können für Projektnummern verwendet werden. Auf Tastendruck wird dann ein PDF mit drei Reihen "code 128" erzeugt, die mit einem handelsüblichen Scanner eingelesen werden können.
