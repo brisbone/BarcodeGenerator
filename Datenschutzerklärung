@@ -1,4 +1,4 @@
-Datenschutzerklärung:
+# Datenschutzerklärung:
 Diese App verarbeitet keine personenbezogenen Daten und hat keine Verbindung zum Internet. Diese App erzeugt aus den in den drei
 Feldern eingegebenen Zeichenkombinationen jeweils einen Strichcode (code 128), der mit einem Scanner eingelesen werden kann. Die 
 jeweils letzte Eingabe wird zum Zweck der Wiederherstellung nach einem Neustart der App auf dem Gerät gespeichert.
