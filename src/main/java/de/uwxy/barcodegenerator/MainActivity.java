@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void openPdf(String filepath) {
-
         Intent intent = new Intent(getApplicationContext(), ShowPdfActivity.class);
         intent.putExtra(FILE_PATH, filepath);
         startActivity(intent);
