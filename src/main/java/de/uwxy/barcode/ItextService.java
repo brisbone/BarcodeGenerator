@@ -98,33 +98,14 @@ public class ItextService extends IntentService {
         table_2.addCell(cell2);
 
         PdfPCell cell = createCell(name, createImage(name, cb));
-
-        /*Image code128Image = createImage(name, cb);
-        PdfPCell cell = new PdfPCell(code128Image);
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.addElement(code128Image);*/
         table.addCell(cell);
         table.addCell(cell);
 
         cell = createCell(kommission, createImage(kommission, cb));
-        /*
-        code128Image = createImage(kommission, cb);
-        cell = new PdfPCell();
-        cell.setBorderWidth(0);
-        cell.addElement(new Phrase(" \n\n\n\n\n"));
-        cell.addElement(new Phrase("" + kommission, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
-        cell.addElement(code128Image); */
+
         table.addCell(cell);
 
-        //code128Image = createImage(arbeitsgang, cb);
         cell = createCell(arbeitsgang, createImage(arbeitsgang, cb));
-        /*
-        cell = new PdfPCell();
-        cell.setBorderWidth(0);
-        cell.addElement(new Phrase(" \n\n\n\n\n"));
-        cell.addElement(new Phrase("" + arbeitsgang, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
-        cell.addElement(code128Image);
-        cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK)))); */
 
         table_2.addCell(cell);
         table_2.addCell(cell2);
@@ -158,8 +139,9 @@ public class ItextService extends IntentService {
     }
 
     private PdfPCell createCell(String text, Image image) {
-        PdfPCell cell = new PdfPCell();
-        cell.setBorderWidth(0);
+        PdfPCell cell = new PdfPCell(image);
+        cell.setBorder(Rectangle.NO_BORDER);
+        //cell.setBorderWidth(0);
         if (!text.equals(name)) {
             cell.addElement(new Phrase(" \n\n\n\n\n"));
             cell.addElement(new Phrase("" + text, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
