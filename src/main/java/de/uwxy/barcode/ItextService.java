@@ -57,6 +57,8 @@ import java.io.FileOutputStream;
 public class ItextService extends IntentService {
 
     private int result = Activity.RESULT_OK;
+    private String name;
+    private String arbeitsgang;
 
 
     public ItextService() {
@@ -65,9 +67,9 @@ public class ItextService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        String name = intent.getStringExtra(MainActivity.NAME);
+        name = intent.getStringExtra(MainActivity.NAME);
         String kommission = intent.getStringExtra(MainActivity.KOMMISSION);
-        String arbeitsgang = intent.getStringExtra(MainActivity.ARBEITSGANG);
+        arbeitsgang = intent.getStringExtra(MainActivity.ARBEITSGANG);
         String filePath = intent.getStringExtra(MainActivity.FILE_PATH);
         Document document = new Document(PageSize.A4, 40, 40, 0, 0);
         //document.setMargins(0f,0f,40,0);
@@ -95,28 +97,34 @@ public class ItextService extends IntentService {
         cell2.setBorderWidth(0);
         table_2.addCell(cell2);
 
-        Image code128Image = createImage(name, cb);
+        PdfPCell cell = createCell(name, createImage(name, cb));
+
+        /*Image code128Image = createImage(name, cb);
         PdfPCell cell = new PdfPCell(code128Image);
         cell.setBorder(Rectangle.NO_BORDER);
-        cell.addElement(code128Image);
+        cell.addElement(code128Image);*/
         table.addCell(cell);
         table.addCell(cell);
 
+        cell = createCell(kommission, createImage(kommission, cb));
+        /*
         code128Image = createImage(kommission, cb);
         cell = new PdfPCell();
         cell.setBorderWidth(0);
         cell.addElement(new Phrase(" \n\n\n\n\n"));
         cell.addElement(new Phrase("" + kommission, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
-        cell.addElement(code128Image);
+        cell.addElement(code128Image); */
         table.addCell(cell);
 
-        code128Image = createImage(arbeitsgang, cb);
+        //code128Image = createImage(arbeitsgang, cb);
+        cell = createCell(arbeitsgang, createImage(arbeitsgang, cb));
+        /*
         cell = new PdfPCell();
         cell.setBorderWidth(0);
         cell.addElement(new Phrase(" \n\n\n\n\n"));
         cell.addElement(new Phrase("" + arbeitsgang, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
         cell.addElement(code128Image);
-        cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK))));
+        cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK)))); */
 
         table_2.addCell(cell);
         table_2.addCell(cell2);
@@ -147,5 +155,19 @@ public class ItextService extends IntentService {
         code128.setCodeType(Barcode128.CODE128);
         Image code128Image = code128.createImageWithBarcode(cb, null, null);
         return code128Image;
+    }
+
+    private PdfPCell createCell(String text, Image image) {
+        PdfPCell cell = new PdfPCell();
+        cell.setBorderWidth(0);
+        if (!text.equals(name)) {
+            cell.addElement(new Phrase(" \n\n\n\n\n"));
+            cell.addElement(new Phrase("" + text, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
+        }
+        cell.addElement(image);
+        if (text.equals(arbeitsgang)) {
+            cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK))));
+        }
+        return cell;
     }
 }
