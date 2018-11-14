@@ -26,7 +26,7 @@
  * fly in a web application, shipping iText with a closed source product.
  */
 
-package de.uwxy.barcodegenerator;
+package de.uwxy.barcode;
 
 import android.app.Activity;
 import android.app.IntentService;
@@ -95,28 +95,14 @@ public class ItextService extends IntentService {
         cell2.setBorderWidth(0);
         table_2.addCell(cell2);
 
-        Barcode128 code128 = new Barcode128();
-        code128.setBaseline(-1);
-        //code128.setSize(12);
-        code128 = new Barcode128();
-        code128.setFont(null);
-        code128.setCode(name);
-        code128.setCodeType(Barcode128.CODE128);
-        Image code128Image = code128.createImageWithBarcode(cb, null, null);
+        Image code128Image = createImage(name, cb);
         PdfPCell cell = new PdfPCell(code128Image);
         cell.setBorder(Rectangle.NO_BORDER);
-        //cell.setBorderWidth(0);
-        //cell.addElement(new Phrase("PO #: " + code_1));
         cell.addElement(code128Image);
         table.addCell(cell);
         table.addCell(cell);
 
-        //table.addCell("Add text and bar arbeitsgang separately:");
-        code128 = new Barcode128();
-        code128.setFont(null);
-        code128.setCode(kommission);
-        code128.setCodeType(Barcode128.CODE128);
-        code128Image = code128.createImageWithBarcode(cb, null, null);
+        code128Image = createImage(kommission, cb);
         cell = new PdfPCell();
         cell.setBorderWidth(0);
         cell.addElement(new Phrase(" \n\n\n\n\n"));
@@ -124,19 +110,13 @@ public class ItextService extends IntentService {
         cell.addElement(code128Image);
         table.addCell(cell);
 
-        code128 = new Barcode128();
-        code128.setFont(null);
-        code128.setCode(arbeitsgang);
-        code128.setCodeType(Barcode128.CODE128);
-        code128Image = code128.createImageWithBarcode(cb, null, null);
+        code128Image = createImage(arbeitsgang, cb);
         cell = new PdfPCell();
-
         cell.setBorderWidth(0);
         cell.addElement(new Phrase(" \n\n\n\n\n"));
         cell.addElement(new Phrase("" + arbeitsgang, FontFactory.getFont(FontFactory.HELVETICA, 26, Font.BOLD, BaseColor.BLACK)));
         cell.addElement(code128Image);
-        Phrase itextPhrase = new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK)));
-        cell.addElement(new Phrase(itextPhrase));
+        cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK))));
 
         table_2.addCell(cell);
         table_2.addCell(cell2);
@@ -158,5 +138,14 @@ public class ItextService extends IntentService {
         intent.putExtra(MainActivity.FILE_PATH, outputPath);
         intent.putExtra(MainActivity.RESULT, result);
         localBroadcastManager.sendBroadcast(intent);
+    }
+
+    private Image createImage(String text, PdfContentByte cb) {
+        Barcode128 code128 = new Barcode128();
+        code128.setFont(null);
+        code128.setCode(text);
+        code128.setCodeType(Barcode128.CODE128);
+        Image code128Image = code128.createImageWithBarcode(cb, null, null);
+        return code128Image;
     }
 }

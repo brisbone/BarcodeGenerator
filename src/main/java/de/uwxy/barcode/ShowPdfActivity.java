@@ -1,4 +1,4 @@
-package de.uwxy.barcodegenerator;
+package de.uwxy.barcode;
 
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.uwxy.barcodegenerator">
+    package="de.uwxy.barcode">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="de.uwxy.barcode.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateVisible">
             <intent-filter>
@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ItextService" />
+        <service android:name="de.uwxy.barcode.ItextService" />
 
-        <activity android:name=".ShowFirstActivity" />
-        <activity android:name=".ShowPdfActivity"></activity>
+        <activity android:name="de.uwxy.barcode.ShowFirstActivity" />
+        <activity android:name="de.uwxy.barcode.ShowPdfActivity"></activity>
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@
  * fly in a web application, shipping iText with a closed source product.
  */
 
-package de.uwxy.barcodegenerator;
+package de.uwxy.barcode;
 
 
 import android.content.BroadcastReceiver;
