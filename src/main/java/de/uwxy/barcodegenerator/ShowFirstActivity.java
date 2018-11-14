@@ -41,24 +41,23 @@ public class ShowFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daten_info);
-        final Context context = getApplication();
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFirstRun(context, MainActivity.PREFS_FIRST_RUN_FLAG, true);
+                setFirstRunFalse();
                 startActivity(new Intent(ShowFirstActivity.this, MainActivity.class));
             }
         });
     }
 
-    public void setFirstRun(Context context, String key, boolean firstrun) {
+    public void setFirstRunFalse() {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
-        settings = context.getSharedPreferences(MainActivity.PREFS_FILENAME, Context.MODE_PRIVATE); //1
-        editor = settings.edit(); //2
-        editor.putBoolean(key, firstrun); //3
+        settings = getApplication().getSharedPreferences(MainActivity.PREFS_FILENAME, Context.MODE_PRIVATE);
+        editor = settings.edit();
+        editor.putBoolean(MainActivity.PREFS_FIRST_RUN_FLAG,false);
         editor.apply();
     }
 }

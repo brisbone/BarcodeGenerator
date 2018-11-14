@@ -35,8 +35,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,18 +51,16 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREFS_FIRST_RUN_FLAG = "BARCODE_PREFS_datenschutz";
     private static final String TAG = "MainActivity";
     public static final String FILE_PATH = "filepath";
-    public static final String NOTIFICATION = "de.uwxy.barcode.ITEXT_SERVICE";
+    public static final String NOTIFICATION = "de.uwxy.barcode.ACTION_ITEXT";
     public static final String RESULT = "result";
     public static final String NAME = "name";
     public static final String KOMMISSION = "kommission";
     public static final String ARBEITSGANG = "arbeitsgang";
-    boolean firstRunFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         final EditText nameEdit = findViewById(R.id.name);
         final EditText kommissionEdit = findViewById(R.id.kommission);
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String name = nameEdit.getText().toString();
                 String kommission = kommissionEdit.getText().toString();
                 String arbeitsgang = arbeisgangEdit.getText().toString();
@@ -101,55 +98,49 @@ public class MainActivity extends AppCompatActivity {
                     savePrefs(context, PREFS_KOMMISSION, kommission);
                 }
 
-                sendIntent(name, kommission, arbeitsgang, filePath);
+                startItextService(name, kommission, arbeitsgang, filePath);
             }
         });
 
-        firstRunFlag = isFirstRun(context, PREFS_FIRST_RUN_FLAG);
-        if (!firstRunFlag) {
-            Intent intent = new Intent(context, ShowFirstActivity.class);
-            intent.putExtra(PREFS_FIRST_RUN_FLAG, firstRunFlag);
-            Log.w(TAG, "onCreate: intent: " + intent);
-            startActivity(intent);
+        if (isFirstRun(context)) {
+            startActivity(new Intent(context, ShowFirstActivity.class));
         }
-        Log.w(TAG, "onCreate: daten: " + firstRunFlag);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, new IntentFilter(NOTIFICATION));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(NOTIFICATION));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(receiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
     protected void savePrefs(Context context, String key, String text) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
-        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE); //1
-        editor = settings.edit(); //2
-        editor.putString(key, text); //3
-        editor.apply(); //4
+        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
+        editor = settings.edit();
+        editor.putString(key, text);
+        editor.apply();
     }
 
     protected String getPrefs(Context context, String key) {
         SharedPreferences settings;
         String text;
-        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE); //1
-        text = settings.getString(key, ""); //2
+        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
+        text = settings.getString(key, "");
         return text;
     }
 
-    protected boolean isFirstRun(Context context, String key) {
+    protected boolean isFirstRun(Context context) {
         SharedPreferences settings;
         boolean isFirstRun;
         settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
-        isFirstRun = settings.getBoolean(key, false);
+        isFirstRun = settings.getBoolean(PREFS_FIRST_RUN_FLAG, true);
         return isFirstRun;
     }
 
@@ -159,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void sendIntent(String name, String kommission, String arbeitsgang, String filePath) {
+    protected void startItextService(String name, String kommission, String arbeitsgang, String filePath) {
         Intent intent = new Intent(this, ItextService.class);
         intent.putExtra(NAME, name);
         intent.putExtra(KOMMISSION, kommission);
@@ -168,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
 
-    protected BroadcastReceiver receiver = new BroadcastReceiver() {
-
+    protected final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras();

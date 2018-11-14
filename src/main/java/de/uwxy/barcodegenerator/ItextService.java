@@ -32,6 +32,7 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -123,7 +124,6 @@ public class ItextService extends IntentService {
         cell.addElement(code128Image);
         table.addCell(cell);
 
-
         code128 = new Barcode128();
         code128.setFont(null);
         code128.setCode(arbeitsgang);
@@ -149,16 +149,14 @@ public class ItextService extends IntentService {
         }
 
         document.close();
-
         publishResults(filePath, result);
-
-
     }
 
     private void publishResults(String outputPath, int result) {
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplication());
         Intent intent = new Intent(MainActivity.NOTIFICATION);
         intent.putExtra(MainActivity.FILE_PATH, outputPath);
         intent.putExtra(MainActivity.RESULT, result);
-        sendBroadcast(intent);
+        localBroadcastManager.sendBroadcast(intent);
     }
 }
