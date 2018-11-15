@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText nameEdit = findViewById(R.id.name);
         final EditText kommissionEdit = findViewById(R.id.kommission);
-        final EditText arbeisgangEdit = findViewById(R.id.arbeitsgang);
+        final EditText arbeitsgangEdit = findViewById(R.id.arbeitsgang);
         final Context context = getApplication();
 
         final String savedName = getPrefs(context, PREFS_USERNAME);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         final String filePath = getApplicationContext().getFilesDir().getAbsolutePath() + fileName;
 
         nameEdit.setText(savedName);
-        arbeisgangEdit.setText(savedArbeitsgang);
+        arbeitsgangEdit.setText(savedArbeitsgang);
         kommissionEdit.setText(savedKommission);
 
         Button btn = findViewById(R.id.doItbutton);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = nameEdit.getText().toString();
                 String kommission = kommissionEdit.getText().toString();
-                String arbeitsgang = arbeisgangEdit.getText().toString();
+                String arbeitsgang = arbeitsgangEdit.getText().toString();
 
                 if (!savedName.equals(name)) {
                     savePrefs(context, PREFS_USERNAME, name);
