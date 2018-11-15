@@ -77,9 +77,7 @@ public class ItextService extends IntentService {
         PdfWriter writer = null;
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
         document.open();
@@ -134,8 +132,7 @@ public class ItextService extends IntentService {
         code128.setFont(null);
         code128.setCode(text);
         code128.setCodeType(Barcode128.CODE128);
-        Image code128Image = code128.createImageWithBarcode(cb, null, null);
-        return code128Image;
+        return code128.createImageWithBarcode(cb, null, null);
     }
 
     private PdfPCell createCell(String text, Image image) {
@@ -148,7 +145,7 @@ public class ItextService extends IntentService {
         }
         cell.addElement(image);
         if (text.equals(arbeitsgang)) {
-            cell.addElement(new Phrase(new Chunk("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK))));
+            cell.addElement(new Phrase("           itextpdf.com", FontFactory.getFont(FontFactory.HELVETICA, 28, Font.BOLD, BaseColor.BLACK)));
         }
         return cell;
     }
