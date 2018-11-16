@@ -24,8 +24,8 @@
         android:id="@+id/pdfview2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/pdf_view"
         android:scaleType="fitCenter"
-        android:visibility="visible"
-        android:contentDescription="TODO" />
+        android:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

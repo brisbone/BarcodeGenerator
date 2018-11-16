@@ -11,6 +11,7 @@
         Daten und hat keine Verbindung zum Internet. Diese App erzeugt aus den in den drei
         Feldern eingegebenen Zeichenkombinationen jeweils einen Strichcode (code 128),
         der mit einem Scanner eingelesen werden kann. Die jeweils letzte Eingabe wird zum Zweck
-        der Wiederherstellung nach einem Neustart der App auf dem Gerät gespeichert.</string>
+        der Wiederherstellung nach einem Neustart der App lokal auf dem Gerät gespeichert.</string>
     <string name="ich_habe_verstanden">OK, ich habe verstanden</string>
+    <string name="pdf_view">pdf</string>
 </resources>
