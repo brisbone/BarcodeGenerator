@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username">username</string>
+    <string name="workflow">task</string>
+    <string name="ich_habe_verstanden">OK, I\'ve got it</string>
+    <string name="text_oben">project</string>
+</resources>

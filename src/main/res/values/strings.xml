@@ -5,21 +5,21 @@
     <string name="username">Benutzername</string>
     <string name="workflow">Tätigkeit</string>
     <string name="fileName" translatable="false">"/barcode_gockel.pdf"</string>
-    <string name="dummy_content">""</string>
+    <string name="dummy_content" translatable="false">""</string>
     <string name="dummy_content_barcode" translatable="false">"barcode"</string>
-    <string name="daten_info">Datenschutzerklärung:\n\nDiese App verarbeitet keine personenbezogenen
+    <string name="daten_info" translatable="false">Datenschutzerklärung:\n\nDiese App verarbeitet keine personenbezogenen
         Daten und hat keine Verbindung zum Internet. Diese App erzeugt aus den in den drei
         Feldern eingegebenen Zeichenkombinationen jeweils einen Strichcode (code 128),
         der mit einem Scanner eingelesen werden kann. Die jeweils letzte Eingabe wird zum Zweck
         der Wiederherstellung nach einem Neustart der App lokal auf dem Gerät gespeichert.</string>
     <string name="ich_habe_verstanden">OK, ich habe verstanden</string>
-    <string name="pdf_view">pdf</string>
-    <string name="kommission">kommissiion</string>
-    <string name="name">name</string>
-    <string name="arbeitsgang">arbeitsgang</string>
-    <string name="filepath">filepath</string>
-    <string name="result">result</string>
-    <string name="barcode_prefs">barcode_preferences</string>
-    <string name="first_run_prefs">BARCODE_PREFS_datenschutz</string>
-    <string name="intent_notification">de.uwxy.barcode.ACTION_ITEXT</string>
+    <string name="pdf_view" translatable="false">pdf</string>
+    <string name="kommission" translatable="false">kommission</string>
+    <string name="name" translatable="false">name</string>
+    <string name="arbeitsgang" translatable="false">arbeitsgang</string>
+    <string name="filepath" translatable="false">filepath</string>
+    <string name="result" translatable="false">result</string>
+    <string name="barcode_prefs" translatable="false">barcode_preferences</string>
+    <string name="first_run_prefs" translatable="false">BARCODE_PREFS_datenschutz</string>
+    <string name="intent_notification" translatable="false">de.uwxy.barcode.ACTION_ITEXT</string>
 </resources>
