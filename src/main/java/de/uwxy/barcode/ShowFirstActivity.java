@@ -55,9 +55,9 @@ public class ShowFirstActivity extends AppCompatActivity {
     public void setFirstRunFalse() {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
-        settings = getApplication().getSharedPreferences(MainActivity.PREFS_FILENAME, Context.MODE_PRIVATE);
+        settings = getApplication().getSharedPreferences(getString(R.string.barcode_prefs), Context.MODE_PRIVATE);
         editor = settings.edit();
-        editor.putBoolean(MainActivity.PREFS_FIRST_RUN_FLAG,false);
+        editor.putBoolean(getString(R.string.first_run_prefs),false);
         editor.apply();
     }
 }

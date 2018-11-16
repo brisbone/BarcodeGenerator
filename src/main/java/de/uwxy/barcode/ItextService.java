@@ -67,10 +67,10 @@ public class ItextService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        name = intent.getStringExtra(MainActivity.NAME);
-        String kommission = intent.getStringExtra(MainActivity.KOMMISSION);
-        arbeitsgang = intent.getStringExtra(MainActivity.ARBEITSGANG);
-        String filePath = intent.getStringExtra(MainActivity.FILE_PATH);
+        name = intent.getStringExtra(getString(R.string.name));
+        String kommission = intent.getStringExtra(getString(R.string.kommission));
+        arbeitsgang = intent.getStringExtra(getString(R.string.arbeitsgang));
+        String filePath = intent.getStringExtra(getString(R.string.filepath));
         Document document = new Document(PageSize.A4, 40, 40, 0, 0);
         //document.setMargins(0f,0f,40,0);
 
@@ -121,9 +121,9 @@ public class ItextService extends IntentService {
 
     private void publishResults(String outputPath, int result) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplication());
-        Intent intent = new Intent(MainActivity.NOTIFICATION);
-        intent.putExtra(MainActivity.FILE_PATH, outputPath);
-        intent.putExtra(MainActivity.RESULT, result);
+        Intent intent = new Intent(getString(R.string.intent_notification));
+        intent.putExtra(getString(R.string.filepath), outputPath);
+        intent.putExtra(getString(R.string.result), result);
         localBroadcastManager.sendBroadcast(intent);
     }
 

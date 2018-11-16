@@ -14,4 +14,12 @@
         der Wiederherstellung nach einem Neustart der App lokal auf dem Gerät gespeichert.</string>
     <string name="ich_habe_verstanden">OK, ich habe verstanden</string>
     <string name="pdf_view">pdf</string>
+    <string name="kommission">kommissiion</string>
+    <string name="name">name</string>
+    <string name="arbeitsgang">arbeitsgang</string>
+    <string name="filepath">filepath</string>
+    <string name="result">result</string>
+    <string name="barcode_prefs">barcode_preferences</string>
+    <string name="first_run_prefs">BARCODE_PREFS_datenschutz</string>
+    <string name="intent_notification">de.uwxy.barcode.ACTION_ITEXT</string>
 </resources>

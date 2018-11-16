@@ -44,18 +44,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String PREFS_FILENAME = "BARCODE_PREFS";
-    private static final String PREFS_USERNAME = "BARCODE_PREFS_username";
-    private static final String PREFS_WORK = "BARCODE_PREFS_work";
-    private static final String PREFS_KOMMISSION = "BARCODE_PREFS_kommission";
-    public static final String PREFS_FIRST_RUN_FLAG = "BARCODE_PREFS_datenschutz";
-    private static final String TAG = "MainActivity";
-    public static final String FILE_PATH = "filepath";
-    public static final String NOTIFICATION = "de.uwxy.barcode.ACTION_ITEXT";
-    public static final String RESULT = "result";
-    public static final String NAME = "name";
-    public static final String KOMMISSION = "kommission";
-    public static final String ARBEITSGANG = "arbeitsgang";
+    private final String TAG = "MainActivity";
+    private final String PREFS_USERNAME = "BARCODE_PREFS_username";
+    private final String PREFS_WORK = "BARCODE_PREFS_work";
+    private final String PREFS_KOMMISSION = "BARCODE_PREFS_kommission";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(NOTIFICATION));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.intent_notification)));
     }
 
     @Override
@@ -122,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     protected void savePrefs(Context context, String key, String text) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
-        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
+        settings = context.getSharedPreferences(getString(R.string.barcode_prefs), Context.MODE_PRIVATE);
         editor = settings.edit();
         editor.putString(key, text);
         editor.apply();
@@ -130,32 +122,29 @@ public class MainActivity extends AppCompatActivity {
 
     protected String getPrefs(Context context, String key) {
         SharedPreferences settings;
-        String text;
-        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
-        text = settings.getString(key, "");
-        return text;
+        settings = context.getSharedPreferences(getString(R.string.barcode_prefs), Context.MODE_PRIVATE);
+        return settings.getString(key, "");
+
     }
 
     protected boolean isFirstRun(Context context) {
         SharedPreferences settings;
-        boolean isFirstRun;
-        settings = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE);
-        isFirstRun = settings.getBoolean(PREFS_FIRST_RUN_FLAG, true);
-        return isFirstRun;
+        settings = context.getSharedPreferences(getString(R.string.barcode_prefs), Context.MODE_PRIVATE);
+        return settings.getBoolean(getString(R.string.first_run_prefs), true);
     }
 
     protected void openPdf(String filepath) {
         Intent intent = new Intent(getApplicationContext(), ShowPdfActivity.class);
-        intent.putExtra(FILE_PATH, filepath);
+        intent.putExtra(getString(R.string.filepath), filepath);
         startActivity(intent);
     }
 
     protected void startItextService(String name, String kommission, String arbeitsgang, String filePath) {
         Intent intent = new Intent(this, ItextService.class);
-        intent.putExtra(NAME, name);
-        intent.putExtra(KOMMISSION, kommission);
-        intent.putExtra(ARBEITSGANG, arbeitsgang);
-        intent.putExtra(FILE_PATH, filePath);
+        intent.putExtra(getString(R.string.name), name);
+        intent.putExtra(getString(R.string.kommission), kommission);
+        intent.putExtra(getString(R.string.arbeitsgang), arbeitsgang);
+        intent.putExtra(getString(R.string.filepath), filePath);
         startService(intent);
     }
 
@@ -164,11 +153,10 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
-                if (bundle.getInt(RESULT) == RESULT_OK) {
-                    openPdf(intent.getStringExtra(FILE_PATH));
+                if (bundle.getInt(getString(R.string.result)) == RESULT_OK) {
+                    openPdf(intent.getStringExtra(getString(R.string.filepath)));
                 } else {
-                    Toast.makeText(MainActivity.this, "creating PDF failed",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "creating PDF failed", Toast.LENGTH_LONG).show();
                 }
             }
         }
